@@ -1,23 +1,42 @@
-/*
- * Author: [Your Name Here]
- * License: MIT
- * Last Updated: 2025-07-27
- *
- * Description:
- * A clean, typewriter-inspired Obsidian theme optimized for readability and minimal visual noise.
- * Originally based on the Impressionist theme and customized for a personal writing environment.
- */
-/* -------- FRONT MATTER ---------
-** Theme: Obsidian Typewriter-Impressionist
-**Edited by Gemini
-** Version number: 2
------------------------------------ */
+/* ============================================================================
+   OBSIDIAN PUBLISH — IMPRESSIONIST / TYPEWRITER THEME
+   ============================================================================
+
+   Two complete moods, both warm:
+
+     · LIGHT — aged parchment. Cream ground, walnut-brown ink and links.
+     · DARK  — candlelit library. Deep-walnut ground under a slow-drifting
+               amber glow, cream text, candle-amber accents, optional stars.
+
+   Serif body (Cardo), hand-drawn headings (Beth Ellen).
+   Live on alittlepilgrim.org.
+
+   ── HOUSE RULE: NO COOL TONES ────────────────────────────────────────────
+   Every colour here is warm — creams, sands, walnut, terracotta, amber.
+   If you fork this and drop a blue or a blue-grey into any token, it shows
+   up everywhere at once (visited links alone paint the whole sidebar, the
+   site title and the footer). Warm greys, if you must; not cool ones.
+
+   ── TWO THINGS THAT WILL CATCH YOU OUT ───────────────────────────────────
+   1. The NIGHT SKY block near the bottom paints the dark background with
+      `!important`. It OVERRIDES --color-background-dark. To change the dark
+      ground you must edit BOTH the token and that rule, or nothing happens.
+   2. Token names are not jobs. Trace a --color-* to the selectors it drives
+      before you change it — several do double duty.
+
+   ── INSTALL ──────────────────────────────────────────────────────────────
+   Drop this file in the root of your published vault as `publish.css`.
+   Obsidian Publish picks it up automatically. There is no staging step:
+   it goes live the moment you publish.
+
+   License: MIT. Originally based on the Impressionist theme.
+   ============================================================================ */
 
 /* +++ TOC
 |_ FONT FACES
 |_ COLOR VARIABLES
 |_ LIGHT MODE
-|_ DARK MODE (FORCED LIGHT)
+|_ DARK MODE (CANDLELIT LIBRARY)
 |_ TYPOGRAPHY & FONTS
 |_ MARKDOWN FORMATTING
 |_ HIGHLIGHT ACTIVE LINE
@@ -26,6 +45,10 @@
 |_ GOOGLE FORM MOBILE ADJUST
 |_ STYLE SETTINGS
 |_ IMAGE ON TEXT
+|_ BOLD & ITALIC FIX
+|_ CALLOUT STYLING
+|_ NIGHT SKY (dark ground, candle glow, stars)
+|_ TYPE LADDER (overline / lede / signature)
 */
 
 /* +++ FONT FACES */
@@ -33,13 +56,43 @@
 
 /* +++ COLOR VARIABLES */
 body {
-  /* New Color Palette */
+  /* --- Light palette: aged parchment --- */
   --color-background-light: #ECE4DA;
   --color-background-secondary-light: #F6F3EC;
   --color-text-light: #36302A;
   --color-text-muted-light: #574C3F;
   --color-border-light: #B9A590;
   --color-hyperlink-light: #F6EAED;
+
+  /* --- Dark palette: candlelit library ---
+     The ground is a deep walnut, not a neutral charcoal. This matters: the
+     text tokens below are warm creams calibrated against a warm ground. Swap
+     the walnut for a neutral and the creams stop sitting on it — they float.
+     If you want a cooler night mode, you have to recalibrate the text too. */
+  --color-background-dark: #19130f;            /* base background — deep walnut */
+  --color-background-secondary-dark: #241b15;  /* cards / secondary surfaces — dark wood */
+  --color-overlay-dark: #31241b;               /* lifted surface */
+  --color-highlight-low-dark: #211811;
+  --color-highlight-med-dark: #4a3627;         /* warm border tint */
+  --color-highlight-high-dark: #6a4c35;        /* warm border tint */
+  --color-muted-dark: #8f735b;                 /* faint text */
+  --color-subtle-dark: #b89a7b;                /* muted text */
+
+  /* Body cream sits at roughly 10:1 on the walnut. A brighter cream (~13:1)
+     is technically more readable but reads as a glaring wall of light on
+     link-dense pages. 10:1 is the comfortable ceiling here. */
+  --color-text-dark: #d3c2a4;                  /* main text — soft parchment */
+
+  --color-love-dark: #b86a4a;                  /* terracotta */
+  --color-gold-dark: #d9a35f;                  /* candle amber — the accent */
+  --color-rose-dark: #b07a78;                  /* dusky rose — featured quote only */
+  --color-pine-dark: #6d8a63;                  /* muted vine */
+
+  /* Warm sand. This token drives .theme-dark a:visited, which means it paints
+     every visited link — the entire sidebar nav, the site title and the
+     footer. Put a cool colour here and the whole chrome turns cool. */
+  --color-foam-dark: #c9b087;                  /* visited links — warm sand */
+  --color-iris-dark: #d6c1a0;                  /* parchment */
 
   /* Font Variables */
   --font-main: 'Cardo', 'Times New Roman', serif;
@@ -94,10 +147,7 @@ body {
   --code-background: #eee8d5;
 }
 
-/* Specific rule for opened/visited hyperlinks in light mode */
-
-
-/* --- Improved Link Styling (Option B) --- */
+/* --- Light mode links: walnut brown, underline on hover only --- */
 .theme-light a,
 .theme-light .internal-link,
 .theme-light .external-link {
@@ -125,64 +175,110 @@ body {
 }
 
 
-/* +++ DARK MODE (FORCED LIGHT) */
-/* The dark mode variables are set to the light mode colors to force a light theme appearance. */
+/* +++ DARK MODE (CANDLELIT LIBRARY)
+   Rosé Pine names survive below as callout-accent labels only — the dark
+   theme itself is the candlelit palette, not Rosé Pine. */
 .theme-dark {
-  --background-primary: var(--color-background-light);
-  --background-primary-alt: var(--color-background-secondary-light);
-  --background-secondary: var(--color-background-secondary-light);
-  --background-secondary-alt: var(--color-background-secondary-light);
-  --background-transparent: hsla(0, 0%, 96%, 0);
-  --background-translucent: rgba(255, 255, 255, 0.85);
-  --background-modifier-border: var(--color-border-light);
-  --background-modifier-border-hover: hsl(from var(--color-border-light) h s calc(l - 6%));
-  --background-modifier-border-focus: hsl(from var(--color-border-light) h s calc(l - 12%));
-  --background-modifier-form-field: hsl(from var(--color-background-light) h s calc(l + 2%));
-  --background-modifier-form-field-highlighted: hsl(from var(--color-background-light) h s calc(l + 4%));
+  --background-primary: var(--color-background-dark);
+  --background-primary-alt: var(--color-background-secondary-dark);
+  --background-secondary: var(--color-background-secondary-dark);
+  --background-secondary-alt: var(--color-overlay-dark);
+  --background-transparent: hsla(32, 45%, 6%, 0);
+  --background-translucent: rgba(38, 26, 28, 0.85);
+  --background-modifier-border: var(--color-highlight-med-dark);
+  --background-modifier-border-hover: var(--color-highlight-high-dark);
+  --background-modifier-border-focus: var(--color-subtle-dark);
+  --background-modifier-form-field: var(--color-overlay-dark);
+  --background-modifier-form-field-highlighted: var(--color-highlight-low-dark);
 
-  --color-accent: var(--color-text-muted-light);
-  --background-modifier-accent: var(--color-hyperlink-light);
-  --vim-cursor: hsla(from var(--color-text-muted-light) h s l / 0.8);
-  --text-accent: var(--color-text-muted-light);
-  --text-accent-hover: var(--color-text-light);
-  --text-normal: var(--color-text-light);
-  --text-muted: var(--color-text-muted-light);
-  --text-faint: var(--color-border-light);
+  /* Accent = candle amber. Gold is safe as the jewel precisely because links
+     are cream (see the link block below): gold then appears only on hover,
+     on the active nav item and on "on this page" — never thirty at a time. */
+  --color-accent: var(--color-gold-dark);
+  --background-modifier-accent: var(--color-highlight-med-dark);
+  --vim-cursor: rgba(215, 162, 78, 0.8);
+  --text-accent: var(--color-gold-dark);
+  --text-accent-hover: var(--color-iris-dark);
+  --text-normal: var(--color-text-dark);
+  --text-muted: var(--color-subtle-dark);
+  --text-faint: var(--color-muted-dark);
 
-  --text-highlight-bg: var(--color-hyperlink-light);
-  --text-highlight-bg-active: rgba(246, 234, 237, 0.7);
-  --text-selection: rgba(204, 230, 255, 0.99);
-  --text-on-accent: var(--color-text-light);
+  --text-highlight-bg: rgba(215, 162, 78, 0.25);      /* gold tint */
+  --text-highlight-bg-active: rgba(215, 162, 78, 0.45);
+  --text-selection: rgba(90, 63, 60, 0.99);
+  --text-on-accent: var(--color-background-dark);
 
-  --interactive-normal: #f2f3f5;
-  --interactive-hover: #e9e9e9;
-  --interactive-accent: var(--color-hyperlink-light);
-  --interactive-accent-hover: var(--color-text-muted-light);
-  --interactive-accent-rgb: 87, 76, 63;
-  --interactive-success: #197300;
+  --interactive-normal: var(--color-overlay-dark);
+  --interactive-hover: var(--color-highlight-low-dark);
+  --interactive-accent: var(--color-gold-dark);
+  --interactive-accent-hover: var(--color-iris-dark);
+  --interactive-accent-rgb: 217, 163, 95;             /* candle amber */
+  --interactive-success: var(--color-foam-dark);
 
-  --scrollbar-active-thumb-bg: rgba(0, 0, 0, 0.2);
-  --scrollbar-bg: rgba(0, 0, 0, 0.05);
-  --scrollbar-thumb-bg: rgba(0, 0, 0, 0.1);
-  --highlight-mix-blend-mode: darken;
+  --scrollbar-active-thumb-bg: rgba(255, 255, 255, 0.2);
+  --scrollbar-bg: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb-bg: rgba(255, 255, 255, 0.1);
+  --highlight-mix-blend-mode: lighten;
 
   --icon-color: var(--text-muted);
-  --icon-hex: 000;
+  --icon-hex: fff;
 
-  --graph-line-color: #c0c9ce;
+  --graph-line-color: #46302f;
 
-  --code-background: #eee8d5;
+  --code-background: var(--color-overlay-dark);
+  /* Obsidian's stock inline-code colour is a cool blue, which paints every
+     inline-code chip blue against this warm ground. Parchment instead. */
+  --code-normal: var(--color-iris-dark);
+}
+
+/* --- Dark mode links: ONE cream, gold reserved for hover ---------------------
+   The reasoning, because it is easy to undo by accident: these are Obsidian
+   pages, and many of them are almost ENTIRELY links — an index, a table of
+   contents, a nav-heavy note. At that density ANY coloured link becomes a
+   wall of colour. So colour must calm, not carry.
+
+   Links read in cream, distinguished from body text by brightness rather
+   than hue. Gold (--color-gold-dark) is spent only where the eye SHOULD go:
+   link hover, the active nav item, the current "on this page" entry.
+
+   Note there is no visited/unvisited split. A two-cream scheme makes nav
+   lists look randomly mottled — three creams on one page read as noise.
+   All links are one cream; hover gold is the only state change. */
+.theme-dark a,
+.theme-dark .internal-link,
+.theme-dark .external-link {
+  color: #ddccab;   /* the ONE link cream — a gentle lift over body text */
+  text-decoration: none;
+  font-weight: inherit;
+}
+
+.theme-dark a:hover,
+.theme-dark .internal-link:hover,
+.theme-dark .external-link:hover,
+.theme-dark a:focus,
+.theme-dark .internal-link:focus,
+.theme-dark .external-link:focus {
+  color: #d9a35f;    /* candle amber — the accent, appears only on hover */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+.theme-dark a:visited,
+.theme-dark .internal-link:visited,
+.theme-dark .external-link:visited {
+  color: #ddccab;     /* SAME as unvisited — no mottle */
 }
 
 /* +++ TYPOGRAPHY & FONTS */
 body {
   --font-text-theme: var(--font-main);
   --font-interface-theme: var(--font-text-theme);
-  --font-editor-theme: var(--font-main); /* Using Cardo for editor as well */
+  --font-editor-theme: var(--font-main); /* Cardo in the editor as well */
   --font-editor: var(--font-text-theme), var(--font-text-override), var(--font-editor-theme);
   --font-monospace-default: "JetBrains Mono", monospace;
   --font-monospace: var(--font-monospace-override), var(--font-monospace-theme), var(--font-monospace-default);
-  font-variant-emoji: unicode !important; /* emoji will override numbers and special characters */
+  font-variant-emoji: unicode !important; /* emoji override numbers and special characters */
   --metadata-input-font-size: var(--font-small);
 
   --font-normal-size: 1em;
@@ -215,10 +311,10 @@ body {
   --h6-color: var(--text-normal);
 
   --normal-weight: 500;
-  --bold-weight: 620;
+  --bold-weight: 700;
   --line-width: 40rem; /* Maximum characters per line */
   --line-height: 1.5;
-  --max-width: 88%; /* Amount of padding around the text, use 90% for narrower padding */
+  --max-width: 88%; /* Padding around the text; 90% for narrower padding */
   --icon-muted: 0.5;
   --border-width: 1px;
   --border-width-alt: 1px;
@@ -248,7 +344,11 @@ body {
 .markdown-preview-view h5, .cm-s-obsidian .cm-header-5,
 .markdown-preview-view h6, .cm-s-obsidian .cm-header-6 {
   font-family: var(--font-headings);
+  /* Beth Ellen's descenders overshoot the line box at display size.
+     1.35 is the floor — go tighter and the tails clip. */
+  line-height: 1.35;
 }
+.inline-title { line-height: 1.35; }
 
 
 /* source mode */
@@ -303,7 +403,7 @@ body {
   font-weight: var(--h1-weight);
 }
 
-/* increase space between editor and metadata â€“ credit to Minimal */
+/* increase space between editor and metadata – credit to Minimal */
 .metadata-container {
   --input-height: 2rem;
 }
@@ -327,8 +427,7 @@ body {
   background-color: var(--vim-cursor) !important;
 }
 
-/* blur background when pop-ups are active
-   (credit: Deep Work) */
+/* pop-up modals (credit: Deep Work) */
 body .modal {
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -420,7 +519,7 @@ div.titlebar-button-container.mod-right {
   height: 1em;
 }
 
-/* DARKEN GRAPH VIEW LINS */
+/* DARKEN GRAPH VIEW LINES */
 .graph-view.color-line {
   color: var(--graph-line-color);
 }
@@ -438,14 +537,16 @@ div.cm-fold-indicator {
 }
 
 
-/* +++ GOOGLE FORM MOBILE ADJUST + */
+/* +++ GOOGLE FORM MOBILE ADJUST +
+   Wrap an embedded Google Form iframe in <div class="responsive-gform-container">
+   and it scales to any screen. Set padding-top to your own form's aspect ratio:
+   (original iframe height / original iframe width) * 100%.
+   The value below is for a 640 x 513 form. */
 
 .responsive-gform-container {
   position: relative;
   overflow: hidden;
-  padding-top: 80.16%; /* This is the magic number for your form's aspect ratio */
-  /* Aspect Ratio Calculation: (original height / original width) * 100% */
-  /* (513 / 640) * 100% = 80.15625% */
+  padding-top: 80.16%; /* (513 / 640) * 100% = 80.15625% */
 }
 
 .responsive-gform-container iframe {
@@ -457,10 +558,12 @@ div.cm-fold-indicator {
   border: 0;
 }
 
-/* +++ END OF SECTION ++ */
+/* +++ END OF SECTION + */
 
 
-/* +++ STYLE SETTINGS by @mgmeyers */
+/* +++ STYLE SETTINGS  +*/
+/* These toggles are read by the Style Settings plugin in your LOCAL vault.
+   They affect the editing view only, not the published site. */
 
 /* @settings
 
@@ -487,30 +590,51 @@ settings:
 /* +++ END OF SECTION ++ */
 
 
-/* +++ IMAGE ON TEXT +++*/
+/* +++ IMAGE ON TEXT +++
+   Typewriter text laid over an image. Markup:
+     <div class="image-container">
+       <img src="...">
+       <span class="image-text-overlay">Your line here</span>
+     </div> */
 
 
-/* For positioning text on an image */
 .image-container {
-  position: relative; /* This is the key to positioning child elements */
-  display: inline-block; /* Makes the container wrap the image */
+  position: relative; /* the key to positioning child elements */
+  display: inline-block; /* makes the container wrap the image */
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
 
 .image-container .image-text-overlay {
-  position: absolute; /* Positions the text relative to the container */
-  top: 50%; /* Center vertically */
-  left: 50%; /* Center horizontally */
-  transform: translate(-50%, -50%); /* Fine-tunes the centering */
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
-  padding: 10px 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #574C3F; /* warm, faded brown */
+  padding: 20px;
   border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
-  pointer-events: none; /* Allows you to click 'through' the text to the image */
-  font-family: "Courier New", Courier, monospace;
+  text-align: left;
+  font-weight: normal;
+  pointer-events: none;
+  font-family: 'Special Elite', monospace;
+  letter-spacing: 0.065em;
+  text-shadow:
+      0.6px 0.6px 0 rgba(0,0,0,0.18),
+      -0.6px -0.6px 0 rgba(0,0,0,0.1),
+      0.3px 0.5px 0 rgba(0,0,0,0.05);
 
+  /* allow wrapping */
+  white-space: normal;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 90%; /* so text wraps nicely within the image */
+
+  font-size: clamp(0.75rem, 2.6vw, 1.1rem);
+  line-height: 1.35;
+  word-break: break-word;
+  hyphens: auto;
 }
+
 
 /* +++ END OF SECTION ++ */
 
@@ -522,8 +646,402 @@ h1 {
 h2 {
   margin-top: 1.4em;
   margin-bottom: 0.5em;
+  border-bottom: none !important; /* overrides the hidden default underline */
 }
 h3 {
   margin-top: 1.2em;
   margin-bottom: 0.4em;
+}
+
+/* +++ BOLD & ITALIC FIX +++*/
+
+/* Apply bold weight to Markdown bold elements */
+.markdown-preview-view strong,
+.markdown-preview-view b {
+  font-weight: var(--bold-weight);
+}
+
+/* Apply bold weight in Live Preview and Source Mode */
+.markdown-source-view.mod-cm6 .cm-strong {
+  font-weight: var(--bold-weight);
+}
+
+/* Apply italic style to Markdown italic elements */
+.markdown-preview-view em,
+.markdown-preview-view i {
+  font-style: italic;
+}
+
+/* Apply italic style in Live Preview and Source Mode */
+.markdown-source-view.mod-cm6 .cm-em {
+  font-style: italic;
+}
+
+/* +++ END OF SECTION ++ */
+
+/* +++ CALLOUT STYLING +++ */
+/* Light mode uses Rosé Pine Dawn accents (calibrated for cream backgrounds).
+   Dark mode uses a single warm ramp, described at that block.
+   --callout-color is an RGB triplet so Obsidian's own rgba() machinery
+   handles the tinting. */
+
+.callout {
+    border-radius: var(--radius-m);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: var(--font-normal-size);
+    border: 1px solid rgba(var(--callout-color), 0.35);
+    background-color: rgba(var(--callout-color), 0.08);
+}
+
+.callout-title {
+    color: var(--text-normal);
+    font-weight: 500;
+}
+
+/* Vertical bar to the left of the title */
+.callout-title::before {
+    background-color: rgb(var(--callout-color));
+    width: 4px;
+    height: 100%;
+    margin-right: 0.5rem;
+}
+
+/* Title icon picks up the accent */
+.callout-icon {
+    color: rgb(var(--callout-color));
+}
+
+/* Dark mode needs a stronger pour. The 8% tint / 35% border above was tuned
+   for cream backgrounds; on walnut it reads as uniform mud and every callout
+   type looks identical. Richer tint, firmer hairline, and the title takes a
+   lifted tint of its own accent so each type declares itself. */
+.theme-dark .callout {
+    border: 1px solid rgba(var(--callout-color), 0.55);
+    background-color: rgba(var(--callout-color), 0.13);
+}
+.theme-dark .callout-title {
+    color: rgb(var(--callout-color));
+    filter: brightness(1.25);
+}
+
+/* --- Per-type accents: LIGHT MODE (Rosé Pine Dawn) --- */
+.theme-light .callout[data-callout="note"]                  { --callout-color: 121, 117, 147; }  /* subtle */
+.theme-light .callout[data-callout="abstract"],
+.theme-light .callout[data-callout="summary"],
+.theme-light .callout[data-callout="tldr"]                  { --callout-color: 144, 122, 169; }  /* iris */
+.theme-light .callout[data-callout="info"],
+.theme-light .callout[data-callout="todo"]                  { --callout-color: 86, 148, 159; }   /* foam */
+.theme-light .callout[data-callout="tip"],
+.theme-light .callout[data-callout="hint"],
+.theme-light .callout[data-callout="important"]             { --callout-color: 234, 157, 52; }   /* gold */
+.theme-light .callout[data-callout="success"],
+.theme-light .callout[data-callout="check"],
+.theme-light .callout[data-callout="done"],
+.theme-light .callout[data-callout="example"]               { --callout-color: 40, 105, 131; }   /* pine */
+.theme-light .callout[data-callout="question"],
+.theme-light .callout[data-callout="help"],
+.theme-light .callout[data-callout="faq"]                   { --callout-color: 144, 122, 169; }  /* iris */
+.theme-light .callout[data-callout="warning"],
+.theme-light .callout[data-callout="caution"],
+.theme-light .callout[data-callout="attention"]             { --callout-color: 215, 130, 126; }  /* rose */
+.theme-light .callout[data-callout="failure"],
+.theme-light .callout[data-callout="fail"],
+.theme-light .callout[data-callout="missing"],
+.theme-light .callout[data-callout="danger"],
+.theme-light .callout[data-callout="error"],
+.theme-light .callout[data-callout="bug"]                   { --callout-color: 180, 99, 122; }   /* love */
+.theme-light .callout[data-callout="quote"],
+.theme-light .callout[data-callout="cite"]                  { --callout-color: 121, 117, 147; }  /* subtle */
+
+/* --- Per-type accents: DARK MODE — THE CANDLELIGHT GRADIENT ---
+   One smooth warm ramp instead of a mixed set:
+   rose → rose-clay → terracotta → bronze → amber → honey → parchment → taupe.
+   The first rule is a CATCH-ALL. Without it, any callout type you have not
+   listed falls back to Obsidian's stock BLUE — the catch-all guarantees no
+   callout can ever render cool on this ground. Keep it first. */
+.theme-dark .callout                                        { --callout-color: 184, 154, 123; }  /* CATCH-ALL: warm taupe — any unlisted type lands here, never blue */
+.theme-dark .callout[data-callout="quote"]                  { --callout-color: 176, 122, 120; }  /* 1 · dusky rose — the jewel (hero rule below) */
+.theme-dark .callout[data-callout="question"],
+.theme-dark .callout[data-callout="help"],
+.theme-dark .callout[data-callout="faq"]                    { --callout-color: 194, 140, 122; }  /* 2 · rose-clay — rose's neighbor */
+.theme-dark .callout[data-callout="failure"],
+.theme-dark .callout[data-callout="fail"],
+.theme-dark .callout[data-callout="missing"],
+.theme-dark .callout[data-callout="danger"],
+.theme-dark .callout[data-callout="error"],
+.theme-dark .callout[data-callout="bug"]                    { --callout-color: 184, 106, 74; }   /* 3 · terracotta — the ember */
+.theme-dark .callout[data-callout="warning"],
+.theme-dark .callout[data-callout="caution"],
+.theme-dark .callout[data-callout="attention"]              { --callout-color: 201, 137, 66; }   /* 4 · bronze clay */
+.theme-dark .callout[data-callout="tip"],
+.theme-dark .callout[data-callout="hint"],
+.theme-dark .callout[data-callout="important"]              { --callout-color: 217, 163, 95; }   /* 5 · candle amber — the site gold */
+.theme-dark .callout[data-callout="success"],
+.theme-dark .callout[data-callout="check"],
+.theme-dark .callout[data-callout="done"],
+.theme-dark .callout[data-callout="example"]                { --callout-color: 232, 190, 118; }  /* 6 · honey */
+.theme-dark .callout[data-callout="abstract"],
+.theme-dark .callout[data-callout="summary"],
+.theme-dark .callout[data-callout="tldr"],
+.theme-dark .callout[data-callout="info"],
+.theme-dark .callout[data-callout="todo"]                   { --callout-color: 214, 193, 160; }  /* 7 · parchment — the quiet end */
+.theme-dark .callout[data-callout="note"],
+.theme-dark .callout[data-callout="cite"]                   { --callout-color: 184, 154, 123; }  /* 8 · warm taupe — plainest of all */
+
+/* --- FEATURED QUOTE (dark) --------------------------------------------------
+   A [!quote] callout used as a hero line — the one under a page banner, say.
+   Richer tint, firmer rose hairline and a soft rose halo lift it above the
+   ordinary callout's 8%/35%, so it reads as the featured line, not a note box.
+   Delete this block if you want quotes to behave like every other callout. */
+.theme-dark .callout[data-callout="quote"] {
+  background-color: rgba(176, 122, 120, 0.13);
+  border-color: rgba(176, 122, 120, 0.45);
+  box-shadow: 0 0 22px rgba(176, 122, 120, 0.14);
+}
+.theme-dark .callout[data-callout="quote"] .callout-title {
+  color: #d9b7b2;                                   /* lifted dusky rose, legible on the dark ground */
+  letter-spacing: 0.01em;
+}
+.theme-dark .callout[data-callout="quote"] .callout-icon { color: #c79a97; }
+
+/* --- End of section --- */
+
+/* Center a logo image in Publish (markdown + wiki embeds).
+   Give the image the alt text "logo": ![logo](my-logo.png) */
+.markdown-rendered img[alt="logo"],
+.markdown-preview-view img[alt="logo"],
+.image-embed[alt="logo"] img,
+img[alt="logo"] {
+  display: block;
+  margin-inline: auto;
+  height: auto;
+  max-width: min(320px, 80vw);
+}
+
+/* Mobile fix for text-on-image */
+@media (max-width: 600px) {
+  .image-container .image-text-overlay {
+    padding: 6px 4px;    /* lighter side padding on phones */
+    max-width: 85%;      /* give the text a bit more width */
+    line-height: 1.3;
+    transform: translate(-58%, -50%);
+  }
+}
+
+/* ============================================================================
+   +++ NIGHT SKY (dark mode) — the ground, the candle glow, the stars
+   ============================================================================
+
+   ***** THIS RULE OVERRIDES THE TOKEN LAYER. *****
+   The `!important` below means --color-background-dark does NOT control the
+   page ground — this does. If you change the dark background, change it in
+   BOTH places or nothing will appear to happen.
+
+   Three layers, bottom to top:
+     1. A deep walnut gradient ramp on <body>.
+     2. ::before — a large, heavily blurred amber radial that drifts slowly
+        from the top-left. This is the candle.
+     3. ::after — 5% SVG fractal noise, full-bleed. Not decoration: the noise
+        is what kills the banding a large soft gradient otherwise shows as
+        visible rings. Remove it and the glow will draw a "brown rainbow".
+
+   Two things learned the hard way, worth keeping:
+     · A second "under-warmth" layer with a height cutoff draws a visible
+       horizontal line across the page. Don't add one.
+     · If you see rings, raise the blur and lengthen the falloff — do not
+       just lower the alpha. Damping hides the glow without fixing the bands.
+
+   The STARS are scoped to `body.alp-home` — i.e. the home page only, via a
+   class added by publish.js. A sky reads as a welcome on one page and as
+   noise on all of them. To put stars everywhere, drop `.alp-home` from those
+   two selectors; to move them elsewhere, add your own body class instead. */
+
+body.theme-dark {
+  background:
+    linear-gradient(180deg, #1d1610 0%, #150f09 55%, #0c0805 100%) fixed !important;
+}
+
+/* The candle glow — a blurred amber halo drifting from the top-left. */
+body.theme-dark::before {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  pointer-events: none;
+  width: 80vmax;
+  height: 80vmax;
+  top: -30vmax;
+  left: -26vmax;
+  background: radial-gradient(circle, rgba(217,163,95,.12) 0%, rgba(217,163,95,.05) 40%, transparent 70%);
+  filter: blur(60px);
+  opacity: .12;
+  animation: alp-glow-drift 70s ease-in-out infinite alternate;
+}
+/* 5% SVG noise over the whole ground — this is what kills gradient banding */
+body.theme-dark::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/></svg>");
+  background-repeat: repeat;
+  background-size: 140px 140px;
+}
+@keyframes alp-glow-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(9vmax, 6vmax) scale(1.12); }
+}
+
+/* +++ THE STARS — home page only (body.alp-home, set by publish.js) */
+body.theme-dark.alp-home .published-container::before,
+body.theme-dark.alp-home .published-container::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: repeat;
+  background-size: 900px 700px;
+}
+body.theme-dark.alp-home .published-container::before {
+  background-image:
+    radial-gradient(1.4px 1.4px at 40px 60px,  #ffe9c4 50%, transparent 51%),
+    radial-gradient(1px 1px     at 190px 320px, #ffe9c4 50%, transparent 51%),
+    radial-gradient(1.7px 1.7px at 320px 140px, #ffe9c4 50%, transparent 51%),
+    radial-gradient(1px 1px     at 480px 500px, #ffdfc4 50%, transparent 51%),
+    radial-gradient(1.3px 1.3px at 620px 260px, #ffe9c4 50%, transparent 51%),
+    radial-gradient(1px 1px     at 780px 90px,  #f5d3c8 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 850px 610px, #ffe9c4 50%, transparent 51%);
+  animation: alp-twinkle 5s ease-in-out infinite;
+}
+body.theme-dark.alp-home .published-container::after {
+  background-image:
+    radial-gradient(1px 1px     at 100px 480px, #ffe9c4 50%, transparent 51%),
+    radial-gradient(1.6px 1.6px at 250px 40px,  #f5d3c8 50%, transparent 51%),
+    radial-gradient(1px 1px     at 400px 640px, #ffe9c4 50%, transparent 51%),
+    radial-gradient(1.2px 1.2px at 560px 380px, #ffdfc4 50%, transparent 51%),
+    radial-gradient(1px 1px     at 700px 550px, #ffe9c4 50%, transparent 51%),
+    radial-gradient(1.4px 1.4px at 830px 200px, #ffe9c4 50%, transparent 51%);
+  animation: alp-twinkle 7s ease-in-out 2.5s infinite;
+}
+@keyframes alp-twinkle {
+  0%, 100% { opacity: .15; }
+  50%      { opacity: .8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.theme-dark::before { animation: none; }
+  body.theme-dark.alp-home .published-container::before,
+  body.theme-dark.alp-home .published-container::after { animation: none; opacity: .4; }
+}
+/* let the sky show through, keep content above the stars */
+.theme-dark .app-container,
+.theme-dark .horizontal-main-container,
+.theme-dark .workspace,
+.theme-dark .published-container,
+.theme-dark .site-body,
+.theme-dark .markdown-preview-view,
+.theme-dark .markdown-rendered {
+  background: transparent !important;
+}
+.theme-dark .app-container,
+.theme-dark .published-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* +++ TYPE LADDER ROLES
+   Three optional utility classes for page furniture. Tracked caps go at the
+   TOP of a page (the overline), the handwriting goes at the BOTTOM (the
+   signature). Never swap them; never set the signature in tracked caps. */
+
+/* Brand / site title — deliberately the EXACT H1 recipe, so the sidebar
+   wordmark and the page-title wordmark speak in one voice. */
+.site-body-left-column-site-name,
+.published-container .site-name {
+  font-family: var(--font-headings);
+  font-weight: var(--h1-weight);
+  color: var(--text-normal);
+  line-height: 1.35;
+}
+/* The wordmark is an <a>, so the link rules above would otherwise repaint it
+   link-cream and it would stop matching the page H1. Force it to heading
+   cream in every state. */
+.theme-dark .site-body-left-column-site-name a,
+.theme-dark .site-body-left-column-site-name a:visited,
+.theme-dark .published-container .site-name a,
+.theme-dark .published-container .site-name a:visited {
+  color: var(--text-normal);
+}
+
+/* Overline — small tracked caps above a page title.
+   <p class="alp-overline">SECTION NAME</p> */
+.alp-overline {
+  font-size: .78rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.theme-light .alp-overline { color: var(--color-text-muted-light); }
+.theme-dark  .alp-overline { color: #d6c1a0; }
+
+/* Lede — one italic line under the title, then stop.
+   <p class="alp-lede">A single sentence.</p> */
+.alp-lede {
+  font-style: italic;
+  line-height: 1.6;
+}
+.theme-dark .alp-lede { color: #d8c8a6; }
+
+/* Signature — the heading hand, small and faded, at the foot of a page.
+   <p class="alp-signature">— your name</p> */
+.alp-signature {
+  font-family: var(--font-headings);
+  font-size: .76rem;
+  opacity: .7;
+  line-height: 1.35;
+}
+.alp-signature a { text-decoration: none; }
+
+/* Hide the "Published with Obsidian Publish" footer credit.
+   Delete this block if you would rather keep it. */
+.site-footer,
+.published-container .publish-footer {
+  display: none !important;
+}
+
+/* --- SIDEBARS SPEAK THE SAME CREAM -----------------------------------------
+   The explorer and "On this page" trees are NOT painted by the link rules —
+   Publish draws them with its own nav/tree variables (muted tan fallbacks),
+   so without this the sides sit in a different cream than the content. The
+   two sides also disagree about "you are here" by default: the explorer
+   underlines it, the outline turns it gold. Unified below: every tree item
+   is the ONE link cream, and the active item is the gold lamp, no underline,
+   on both sides. */
+.theme-dark .published-container .tree-item-self,
+.theme-dark .published-container .tree-item-self .tree-item-inner,
+.theme-dark .published-container .nav-file-title,
+.theme-dark .published-container .nav-folder-title,
+.theme-dark .published-container .outline .tree-item-self {
+  color: #ddccab;   /* the ONE link cream */
+  text-decoration: none;
+}
+.theme-dark .published-container .tree-item-self.is-active,
+.theme-dark .published-container .tree-item-self.mod-active,
+.theme-dark .published-container .tree-item-self.is-active .tree-item-inner,
+.theme-dark .published-container .tree-item-self.mod-active .tree-item-inner {
+  color: var(--color-gold-dark);
+  text-decoration: none;
+}
+
+/* The left nav stays FLAT — the glow and the sky never run behind it, which
+   is why the side columns are deliberately absent from the transparency list
+   above. They are painted the same warm near-black as the ground so there is
+   no visible seam between nav and page. */
+.theme-dark .site-body-left-column,
+.theme-dark .site-body-right-column,
+.theme-dark .site-body-left-column-inner,
+.theme-dark .site-body-right-column-inner {
+  background: var(--background-primary) !important;   /* = deep walnut #19130f */
 }
