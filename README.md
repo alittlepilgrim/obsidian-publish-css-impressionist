@@ -34,6 +34,28 @@ palette. This version adds a real one:
 
 ---
 
+## Screenshots
+
+### Dark mode — the candlelit library
+
+![The candlelit library — home page in dark mode](dark-home.png)
+
+The callout ramp, warm from end to end — honey, rose-clay, bronze, terracotta:
+
+![Callouts in dark mode](dark-callouts.png)
+
+Links read in one cream, a whisper above body text, with gold held back for hover:
+
+![Links and text styles in dark mode](dark-links.png)
+
+### Light mode — aged parchment
+
+![A Little Pilgrim in light mode — home page](light-home.png)
+
+![Callouts in light mode](light-callouts.png)
+
+---
+
 ## Install
 
 1. Download `publish.css` (or `obsidian-publish-css-impressionist.css` and

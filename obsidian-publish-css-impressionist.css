@@ -726,6 +726,7 @@ h3 {
 }
 
 /* --- Per-type accents: LIGHT MODE (Rosé Pine Dawn) --- */
+.theme-light .callout                                       { --callout-color: 121, 117, 147; }  /* CATCH-ALL: subtle — any unlisted type lands here, never Obsidian's stock blue */
 .theme-light .callout[data-callout="note"]                  { --callout-color: 121, 117, 147; }  /* subtle */
 .theme-light .callout[data-callout="abstract"],
 .theme-light .callout[data-callout="summary"],
